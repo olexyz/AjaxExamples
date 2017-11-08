@@ -1,2 +1,2 @@
 # JSExamples
-JavaScript vanilla ajax examples.
+JavaScript vanilla examples.
