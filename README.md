@@ -1,2 +1,2 @@
-# AjaxExamples
-JavaScript vanilla ajax sync and async examples.
+# JSExamples
+JavaScript vanilla ajax examples.
