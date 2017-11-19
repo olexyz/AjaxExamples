@@ -1,0 +1,55 @@
+function SelectToSearch(){
+			
+      //Selection in textarea
+      
+  var textComponent = document.getElementById("contxt");
+  var selectedText;
+  
+      // IE version
+  
+  if (document.selection != undefined)
+  {
+    textComponent.focus();
+    var sel = document.selection.createRange();
+    selectedText = sel.text;
+  }
+  
+      // Mozilla version
+  
+  else if (textComponent.selectionStart != undefined)
+  {
+    var startPos = textComponent.selectionStart;
+    var endPos = textComponent.selectionEnd;
+    selectedText = textComponent.value.substring(startPos, endPos)
+  }
+  
+  //alert("Selected: " + selectedText);
+
+	var searchString = "do=contfind&act=find&vivod=1&search=" + selectedText;
+  
+	//alert("searchString: " + searchString);
+  
+      // Request to server
+  
+	var req = new getXmlHttpRequest();
+	req.onreadystatechange = function(){
+	    if (req.readyState != 4) return;
+			var responseText = String(req.responseText);
+			var books = responseText;
+			document.getElementById("loadfind").innerHTML=books;
+	};
+				
+	     // Method POST
+  
+	req.open("POST", "index.php", true);
+
+	    // Headder
+  
+	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	//req.setRequestHeader("Content-Length", searchString.length);
+			
+	   // Send data
+  
+	req.send(searchString);		
+  
+}
