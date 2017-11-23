@@ -1,0 +1,53 @@
+ //Table sorting. Important cretae THEAD and TBODY, in TH set attribute data-type="string" or data-taype="numebr" and in THEAD set onclick="SortTbl(event)".
+   
+ function sortColumn(colNum, type, todo){
+		var tbs = document.getElementById("tbs");
+		var tb = document.getElementById("tb");
+		var rows = [].slice.call(tbs.rows);
+		rows.sort(function(a,b){
+		    if(todo == "up"){
+				if(type=="string")
+					return b.cells[colNum].innerHTML > a.cells[colNum].innerHTML;
+				else
+					return b.cells[colNum].innerHTML - a.cells[colNum].innerHTML;
+			}
+			else{
+				if(type=="string")
+			    return a.cells[colNum].innerHTML > b.cells[colNum].innerHTML;
+		    else
+				return a.cells[colNum].innerHTML - b.cells[colNum].innerHTML;
+			}
+		});
+		var newtbs=document.createElement("tbody");
+		tb.removeChild(tbs);
+		for(i=0;i<rows.length;i++)
+			tbs.appendChild(rows[i]);
+		tb.appendChild(tbs);
+	};
+	
+    function SortTbl(event){
+		var target=event.target;
+		if(target.className!=="up"){
+			if(target.children[0]){
+				var imgold = target.children[0];
+			    target.removeChild(imgold);
+			}
+			var img = document.createElement("img");
+			img.setAttribute("src", "img/arrow-down.svg");
+			img.setAttribute("width", "10px");
+			target.className="up";
+			target.appendChild(img);
+		}
+		else{
+			if(target.children[0]){
+				var imgold = target.children[0];
+			    target.removeChild(imgold);
+			}
+			var img = document.createElement("img");
+			img.setAttribute("src", "img/arrow-up.svg");
+			img.setAttribute("width", "10px");
+			target.className="down";
+			target.appendChild(img);
+		}
+		sortColumn(target.cellIndex, target.getAttribute("data-type"), target.className);
+	};
